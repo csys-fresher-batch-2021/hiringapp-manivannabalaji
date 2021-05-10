@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recurit Desk</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="/views/recruiter/RecruiterDashboard.html">Dashboard</a>
+        <a class="active" href="/views/recruiter/JobsMenu.html">Jobs</a>
+        <a href="/views/recruiter/AllApplicants.html">Applicants</a>
+        <a href="#selected">Selected List</a>
+    </div>
+    <div class="content">
+        <h1 class="display-4 text-center">Post a Job</h1>
+        <form onsubmit="addJob()">
+            <div class="form-group">
+                <label for="jobTitle">Job Posting Headline</label>
+                <input type="text" name="jobTitle" id="jobTitle" placeholder="Job Posting Headline" required>
+            </div>
+            <div class="form-group">
+                <label for="jobType">Employment Type</label>
+                <select name="jobType" id="jobType" required>
+                    <option value="Full">Full Time</option>
+                    <option value="Part">Part Time</option>
+                </select>
+            </div>
+            <label>Job Description</label>
+            <div class="form-group">
+                <textarea name="description" id="description" cols="100" rows="10" placeholder="" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="skills">Key Skills</label>
+                <input type="text" name="skills" id="skills" placeholder="Skills Required" required>
+            </div>
+            <div class="form-group">
+                <label for="">Work Experience (Years)</label>
+                <label for="minYears">Min</label>
+                <input type="number" name="minYears" id="minYears" required>
+                <label for="maxYears">Max</label>
+                <input type="number" name="maxYears" id="maxYears" required>
+            </div>
+            <div class="form-group">
+                <label for="">Annual Salary Range</label>
+                <label for="minSalary">From</label>
+                <input type="number" name="minSalary" id="minSalary" required>
+                <label for="maxSalary">To</label>
+                <input type="number" name="maxSalary" id="maxSalary" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location" placeholder="Location" required>
+            </div>
+            <div class="form-group">
+                <label for="noOfVacancy">No of Vacancies</label>
+                <input type="number" name="noOfVacancy" id="noOfVacancy" placeholder="No of Vacancy" required>
+            </div>
+            <div class="form-group">
+                <label for="qualification">Educational Qualification</label>
+                <input type="text" name="qualification" id="qualification" placeholder="Qualification" required>
+            </div>
+            <button class="btn btn-danger" id="postBtn">Post Job</button>
+        </form>        
+    </div>
+    <script src="/service/JobManager.js"></script>
+    <script src="/validator/InputValidator.js"></script>
+    <script src="/assets/js/AddJobPost.js"></script>
+</body>
+</html>
