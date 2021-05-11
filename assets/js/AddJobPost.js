@@ -1,3 +1,6 @@
+/**
+ * Function to add new job post.
+ */
 function addJob(){
     event.preventDefault();
     let jobTitle = document.getElementById('jobTitle').value;

@@ -6,16 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Recurit Desk</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
 </head>
 <body>
-    <div class="sidebar">
-        <a href="/views/recruiter/RecruiterDashboard.html">Dashboard</a>
-        <a class="active" href="/views/recruiter/JobsMenu.html">Jobs</a>
-        <a href="/views/recruiter/AllApplicants.html">Applicants</a>
+    <nav class="sidebar">
+        <a href="#Dashboard">Dashboard</a>
+        <a class="active" href="#Jobs">Jobs</a>
+        <a href="#Applicants">Applicants</a>
         <a href="#selected">Selected List</a>
-    </div>
-    <div class="content">
-        <h1 class="display-4 text-center">Post a Job</h1>
+    </nav>
+    <header>
+        <h1 class="display-4 text-center">Recruit Desk</h1>
+    </header>
+    <main class="content">
+        <h5>Post a Job</h5>
         <form onsubmit="addJob()">
             <div class="form-group">
                 <label for="jobTitle">Job Posting Headline</label>
@@ -64,7 +68,7 @@
             </div>
             <button class="btn btn-danger" id="postBtn">Post Job</button>
         </form>        
-    </div>
+    </main>
     <script src="/service/JobManager.js"></script>
     <script src="/validator/InputValidator.js"></script>
     <script src="/assets/js/AddJobPost.js"></script>

@@ -24,6 +24,11 @@ class InputValidator{
         }
         return valid;
     }
+
+    /**
+     * Function to verify all form fields are filled by user.
+     * @param {*} job 
+     */
     static checkFormFields(job){
         let jobTitle = job.jobTitle;
         let jobType = job.jobType;
