@@ -42,12 +42,24 @@ class InputValidator{
         let qualification = job.qualification;
 
         let valid = true;
-        if(jobTitle.trim().length < 1 || jobType.trim().length < 1 || description.trim().length < 1
-            || skills.trim().length < 1 || minYear.trim().length < 1 || maxYear.trim().length < 1
-            || minSalary.trim().length < 1 || maxSalary.trim().length < 1 || location.trim().length < 1
-            || qualification.trim().length < 1){
+        if( this.checkEmptyData(jobTitle) || this.checkEmptyData(jobType) || this.checkEmptyData(description) 
+            || this.checkEmptyData(skills) || this.checkEmptyData(minYear) || this.checkEmptyData(maxYear) 
+            || this.checkEmptyData(minSalary) || this.checkEmptyData(maxSalary) || this.checkEmptyData(location) 
+            || this.checkEmptyData(qualification)){
                 valid = false;
         }
         return valid;
+    }
+
+    /**
+     * Function to check variable has empty value or not.
+     * @param {*} data 
+     */
+    static checkEmptyData(data){
+        let isValid = false;
+        if(data.trim().length < 1){
+            isValid = true;
+        }
+        return isValid;
     }
 }

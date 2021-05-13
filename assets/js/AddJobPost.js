@@ -15,10 +15,7 @@ function addJob(){
     let noOfVacancy = document.getElementById('noOfVacancy').value;
     let qualification = document.getElementById('qualification').value;
 
-    let isValidSalary = InputValidator.validateSalary(minSalary, maxSalary);
-    let isValidYear = InputValidator.validateExperience(minYears, maxYears);
-
-    let job = {
+    const job = {
         "jobTitle": jobTitle,
         "jobType": jobType,
         "description": description,
@@ -32,6 +29,8 @@ function addJob(){
         "qualification": qualification
     };
 
+    let isValidSalary = InputValidator.validateSalary(minSalary, maxSalary);
+    let isValidYear = InputValidator.validateExperience(minYears, maxYears);
     let allFieldsFilled = InputValidator.checkFormFields(job);
 
     if(isValidSalary && isValidYear && allFieldsFilled){
