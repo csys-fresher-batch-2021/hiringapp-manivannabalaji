@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/assets/css/sidebar.css">
+        <title>Recruit Desk</title>
+    </head>
+    <body>
+        <nav class="sidebar">
+            <a href="/views/recruiter/RecruiterDashboard.html">Dashboard</a>
+            <a class="active" href="/views/recruiter/JobsMenu.html">Jobs</a>
+            <a href="#/views/recruiter/AllApplicants.html">Applicants</a>
+            <a href="#/views/recruiter/SelectedList.html">Selected List</a>
+        </nav>
+        <header>
+            <h1 class="display-4 text-center">Recruit Desk</h1>
+        </header>
+        <main class="content">
+            <section class="row">
+                <article class="col-lg-6">
+                    <div class="card" style="width: 22rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">New Job</h5>
+                            <p class="card-text">Add new job post.</p>
+                            <button id="newBtn" class="btn btn-warning">More</button>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-lg-6">
+                    <div class="card" style="width: 22rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">View Job</h5>
+                            <p class="card-text">View, update and delete job posts.</p>
+                            <button id="viewBtn" class="btn btn-warning">More</button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+        <script type="text/javascript">
+            document.getElementById('newBtn').addEventListener('click', function(){
+                window.location.href = "AddJobPost.html";
+            });
+            document.getElementById('viewBtn').addEventListener('click', function(){
+                window.location.href = "AllJobs.html";
+            });
+        </script>
+    </body>
+</html>

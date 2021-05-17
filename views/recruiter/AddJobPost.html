@@ -10,8 +10,8 @@
 </head>
 <body>
     <nav class="sidebar">
-        <a href="#Dashboard">Dashboard</a>
-        <a class="active" href="#Jobs">Jobs</a>
+        <a href="/views/recruiter/RecruiterDashboard.html">Dashboard</a>
+        <a class="active" href="/views/recruiter/JobsMenu.html">Jobs</a>
         <a href="#Applicants">Applicants</a>
         <a href="#selected">Selected List</a>
     </nav>
@@ -74,7 +74,8 @@
                     <option value="Any">Any Degree</option>
                 </select>
             </div>
-            <button class="btn btn-primary" id="postBtn">Post Job</button>
+            <button class="btn btn-warning" id="postBtn">Post Job</button>
+            <button class="btn btn-primary" onclick="window.location.href='JobsMenu.html'">Back</button>
         </form>        
     </main>
     <script src="/service/JobManager.js"></script>
