@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recruit Desk</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+</head>
+<body>
+    <nav class="sidebar">
+            <a href="/views/recruiter/RecruiterDashboard.html">Dashboard</a>
+            <a class="active" href="/views/recruiter/JobsMenu.html">Jobs</a>
+            <a href="#/views/recruiter/AllApplicants.html">Applicants</a>
+            <a href="#/views/recruiter/SelectedList.html">Selected List</a>
+    </nav>
+    <header>
+        <h1 class="display-4 text-center">Recruit Desk</h1>
+    </header>
+    <main class="content">
+        <h5>Available Jobs</h5>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Job Id</th>
+                    <th scope="col">Job Title</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="table-content"></tbody>
+        </table>
+        <a href="JobsMenu.html" class="btn btn-primary">Back</a>
+    </main>
+    <script src="/service/JobManager.js"></script>
+    <script src="/service/DynamicElements.js"></script>
+    <script src="/assets/js/AllJobs.js"></script>
+</body>
+</html>
