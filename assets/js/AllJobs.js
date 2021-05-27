@@ -41,7 +41,7 @@ function addListenerToButtons(){
                 // get jobid from th field which is two level up for button.
                 let jobId = e.target.parentNode.parentNode.querySelector('th').innerText;
                 localStorage.setItem("JOB_VIEW_ID", jobId);
-                window.location.href = "#ViewJobDetails.html";
+                window.location.href = "ViewJobDetails.html";
             });
         });
     }
