@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recruit Desk</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <a href="RecruiterDashboard.html">Dashboard</a>
+        <a class="active" href="JobsMenu.html">Jobs</a>
+        <a href="#AllApplicants.html">Applicants</a>
+        <a href="#SelectedList.html">Selected List</a>
+        <a href="../../index.html">Logout</a>
+    </nav>
+    <header>
+        <h1 class="display-4 text-center">Recruit Desk</h1>
+    </header>
+    <main class="content">
+            <h5>Job Details</h5>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Job Posting Headline</td><td><span id="jobTitle"></span></td></tr>
+                    <tr><td>Employment Type</td><td><span id="jobType"></span> Time</td></tr>
+                    <tr><td>Job Description</td><td><p id="description"></p></td></tr>
+                    <tr><td>Key Skills</td><td><span id="skills"></span></td></tr>
+                    <tr><td>Work Experience</td><td><span id="minYears"></span> To <span id="maxYears"></span> Years</td></tr>
+                    <tr><td>Annual Salary</td><td><span id="minSalary"></span> To <span id="maxSalary"></span> INR</td></tr>
+                    <tr><td>Location</td><td><span id="location"></span></td></tr>
+                    <tr><td>No of Vacancy</td><td><span id="noOfVacancy"></span></td></tr>
+                    <tr><td>Educational Qualification</td><td><span id="qualification"></span></td></tr>
+                </tbody>
+            </table>
+            <button id="updateBtn" class="btn btn-secondary">Update Job Post</button>
+            <button id="deleteBtn" class="btn btn-danger">Delete Job Post</button>
+    </main>
+</body>
+    <script src="../../service/JobManager.js"></script>
+    <script src="../../assets/js/ViewJobDetails.js"></script>
+</html>
