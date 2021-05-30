@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <title>Recruit Desk</title>
+        <style>
+            section{
+                width: 410px;
+                height: 350px;
+                background-color: white;
+                margin-top: 10%;
+                padding: 20px;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body style="background-color: #3498db;">
+        <main class="d-flex justify-content-center">
+            <section>
+                <h1 class="display-4">Applicant Login</h1>
+                <form onsubmit="authenticate()">
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <p id="errorText" class="text-danger"></p>
+                    </div>
+                    <button class="btn btn-primary">Login</button>
+                </form>
+            </section>
+        </main>
+    </body>
+    <script src="../../service/ApplicantManager.js"></script>
+    <script type="text/javascript">
+        function authenticate(){
+            event.preventDefault();
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let validApplicant = ApplicantManager.authenticateApplicant(email, password);
+            if(validApplicant){
+                alert('Login Successful!');
+                let applicant = ApplicantManager.getApplicant(email);
+                applicant['userType'] = 'applicant';
+                localStorage.setItem('USER', JSON.stringify(applicant));
+                window.location.href = "ApplicantDashboard.html";
+            } else{
+                document.getElementById('errorText').innerText = "Invalid Credentials!";
+            }
+        }
+    </script>
+</html>

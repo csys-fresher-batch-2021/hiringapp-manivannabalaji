@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Recruit Desk</title>
+    <style>
+        section{
+            width: 450px;
+            height: 400px;
+            background-color: white;
+            margin-top: 10%;
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body style="background-color: #3498db;">
+    <main class="d-flex justify-content-center">
+        <section>
+            <h1 class="display-4">Applicant Signup</h1>
+            <form onsubmit="createAccount()">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Name" pattern="([^\s][A-z\s]+)" title="Please enter alphabets and spaces(Not first)" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" pattern=".{8,}" title="Minimum 8 characters" required>
+                </div>
+                <div class="form-group">
+                    <p id="errorText" class="text-danger"></p>
+                </div>
+                <button class="btn btn-primary">SignUp</button>
+            </form>
+        </section>
+    </main>
+    <script src="../../service/ApplicantManager.js"></script>
+    <script src="../../validator/InputValidator.js"></script>
+    <script type="text/javascript">
+        /**
+         * Function to store user data to localstorage
+         */
+        function createAccount(){ 
+            event.preventDefault();
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+
+            let isvalidEmail = validateEmail(email);
+            let isvalidName = InputValidator.validateName(name);
+
+            if(isvalidName && isvalidEmail){
+                let newApplicant = {
+                "name": name,
+                "email": email,
+                "password": password
+                }
+                ApplicantManager.addApplicant(newApplicant);
+                alert('Account created successfully.');
+                window.location.href = "ApplicantLogin.html";
+            } else if(!isvalidEmail){
+                document.getElementById('errorText').innerText = "Email address already in use.";
+            } else if (!isvalidName){
+                document.getElementById('errorText').innerText = "Name must be only alphabets and spaces.";
+            }
+        }
+        /**
+         * Function to check whether email already exists.
+         * @param {string} email
+         */
+        function validateEmail(email){
+            let valid = true;
+            let applicant = ApplicantManager.getApplicant(email);
+            if(applicant != null){
+                valid = false;
+            }
+            return valid;
+        }    
+    </script>
+</body>
+</html>
