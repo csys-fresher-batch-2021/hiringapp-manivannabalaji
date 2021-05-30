@@ -62,4 +62,57 @@ class InputValidator{
         }
         return isValid;
     }
+     /**
+     * Function to check name has only alphabets, spaces and must start with alphabet.
+     * @param {*} name 
+     */
+    static validateName(name){
+        let valid = true;
+        if(name.charCodeAt(0) == 32){
+            valid = false;
+        }
+        for(let i = 0; i < name.length; i++){
+            if(!(name.charCodeAt(i) >= 65 && name.charCodeAt(i) <= 90       //validating ascii value to find alphabet.
+             || name.charCodeAt(i) >= 97 && name.charCodeAt(i) <= 122
+             || name.charCodeAt(i) == 32)){
+                valid = false;
+             }
+        }
+        return valid;
+    }
+
+    /**
+     * Function to check mobile number has length 10 and greater than 0.
+     * @param {*} mobile 
+     */
+    static validateMobile(mobile){
+        let valid = false;
+        if(parseInt(mobile) > 0 && mobile.length == 10){
+            valid = true;
+        }
+        return valid;
+    }
+    /**
+     * Function to check year of passing has 4 digit value and not 0 value.
+     * @param {*} yop 
+     */
+    static validateYearOfPassing(yop){
+        let valid = false;
+        if(parseInt(yop) > 0 && yop.length == 4){
+            valid = true;
+        }
+        return valid;
+    }
+
+    /**
+     * Function to check whether the work experience has length 1 to 2.
+     * @param {*} experience 
+     */
+    static validateExperience(experience){
+        let valid = false;
+        if(experience.length >= 1 && experience.length <= 2){
+            valid = true;
+        }
+        return valid;
+    }
 }
