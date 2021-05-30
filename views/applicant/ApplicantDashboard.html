@@ -19,6 +19,18 @@
     </header>
     <main class="content">
         <h5>Welcome <span id="userName"></span></h5>
+        <h6>Available Jobs</h6>
+        <section class="m-2">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Job Id</th>
+                        <th>Post</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="table-content"></tbody>
+            </table>
     </main>
     <script src="../../service/JobManager.js"></script>
     <script src="../../service/DynamicElements.js"></script>

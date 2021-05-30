@@ -61,6 +61,21 @@ class JobManager{
     }
 
     /**
+     * Function to search specific job from storage.
+     * @param {*} jobOfferName 
+     */
+    static searchJobOffer(jobOfferName){
+        let searchedJobOffer = [];
+        openings = this.getJobOffers();
+        openings.forEach(element => {
+            if(element.jobTitle.includes(jobOfferName)){
+                searchedJobOffer.push(element);
+            }
+        });
+        return searchedJobOffer;
+    }
+
+    /**
      * Function to get a job offer using job id.
      * @param {number} id 
      */
