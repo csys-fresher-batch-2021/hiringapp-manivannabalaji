@@ -17,7 +17,7 @@ class JobManager{
         openings = this.getJobOffers();
         let length = openings.length;
         if(length > 0){
-            let lastElementId = openings[length-1].id;
+            let lastElementId = parseInt(openings[length-1].id);
             offer['id'] = lastElementId + 1;
         } else{
             offer['id'] = 1;
