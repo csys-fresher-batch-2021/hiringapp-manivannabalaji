@@ -1,7 +1,7 @@
 let applyBtn = document.getElementById('applyBtn');
 
 applyBtn.addEventListener('click', function(){
-    window.location.href = "#ApplyJob.html";
+    window.location.href = "ApplyJob.html";
 });
 
 setJobDetails();
