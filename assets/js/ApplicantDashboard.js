@@ -1,4 +1,5 @@
 let tableContent = document.getElementById('table-content');
+let search = document.getElementById('search');
 
 let allJobs = JobManager.getJobOffers();
 
@@ -28,6 +29,17 @@ function displayJobs(allJobs){
         tableContent.appendChild(tr);
     });   
 }
+
+search.addEventListener('input', function(){
+    let searchText = document.getElementById('search').value.toLowerCase();
+    tableContent.innerHTML = "";
+    let jobOffers = JobManager.searchJobOffer(searchText);
+    if(jobOffers.length < 1){
+        tableContent.innerHTML = "<p>No Jobs Found!";
+    }
+    displayJobs(jobOffers);
+    addListenerToButtons();
+});
 
 setUserName();
 /**
