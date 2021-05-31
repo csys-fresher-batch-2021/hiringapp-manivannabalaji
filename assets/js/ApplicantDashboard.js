@@ -60,7 +60,7 @@ function addListenerToButtons(){
             event.addEventListener('click', function(e){
                 let jobId = e.target.parentNode.parentNode.querySelector('th').innerText;
                 localStorage.setItem("JOB_VIEW_ID", jobId);
-                window.location.href = "#JobInformation.html";
+                window.location.href = "JobInformation.html";
             });
         });
     }
