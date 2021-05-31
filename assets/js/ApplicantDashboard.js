@@ -1,5 +1,4 @@
 let tableContent = document.getElementById('table-content');
-let searchBtn = document.getElementById('searchBtn');
 
 let allJobs = JobManager.getJobOffers();
 
@@ -30,18 +29,6 @@ function displayJobs(allJobs){
     });   
 }
 
-searchBtn.addEventListener('click', function(){
-    let searchText = document.getElementById('search').value;
-    tableContent.innerHTML = "";
-    searchText = searchText.charAt(0).toUpperCase() + searchText.slice(1); //capitalize search term first letter.
-    let jobOffers = JobManager.searchJobOffer(searchText);
-    if(jobOffers.length < 1){
-        tableContent.innerHTML = "<p>No Jobs Found!";
-    }
-    displayJobs(jobOffers);
-    addListenerToButtons();
-});
-
 setUserName();
 /**
  * Function to show username
@@ -61,7 +48,7 @@ function addListenerToButtons(){
             event.addEventListener('click', function(e){
                 let jobId = e.target.parentNode.parentNode.querySelector('th').innerText;
                 localStorage.setItem("JOB_VIEW_ID", jobId);
-                window.location.href = "JobInformation.html";
+                window.location.href = "#JobInformation.html";
             });
         });
     }
