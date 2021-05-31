@@ -68,7 +68,7 @@ class JobManager{
         let searchedJobOffer = [];
         openings = this.getJobOffers();
         openings.forEach(element => {
-            if(element.jobTitle.includes(jobOfferName)){
+            if(element.jobTitle.toLowerCase().includes(jobOfferName)){
                 searchedJobOffer.push(element);
             }
         });
