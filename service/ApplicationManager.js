@@ -49,7 +49,7 @@ class ApplicationManager{
         let searchedApplications = [];
         applications = this.getAllApplications();
         applications.forEach(element => {
-            if(element.jobTitle.includes(job)){
+            if(element.jobTitle.toLowerCase().includes(job.toLowerCase())){
                 searchedApplications.push(element);
             }
         });
