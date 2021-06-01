@@ -11,30 +11,29 @@
 <body>
     <nav class="sidebar">
         <a href="RecruiterDashboard.html">Dashboard</a>
-        <a class="active" href="JobsMenu.html">Jobs</a>
+        <a href="JobsMenu.html">Jobs</a>
         <a href="AllApplicants.html">Applicants</a>
-        <a href="SelectedList.html">Selected List</a>
+        <a class="active" href="SelectedList.html">Selected List</a>
         <a href="../../index.html">Logout</a>
     </nav>
     <header>
         <h1 class="display-4 text-center">Recruit Desk</h1>
     </header>
     <main class="content">
-        <h5>Available Jobs</h5>
         <table class="table table-hover">
             <thead>
-                <tr>
-                    <th scope="col">Job Id</th>
-                    <th scope="col">Job Title</th>
-                    <th scope="col">Actions</th>
-                </tr>
+                <th scope="col">Application Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Post</th>
+                <th scope="col">Score</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
             </thead>
             <tbody id="table-content"></tbody>
         </table>
-        <a href="JobsMenu.html" class="btn btn-primary">Back</a>
     </main>
-    <script src="../../service/JobManager.js"></script>
+    <script src="../../service/SelectionManager.js"></script>
     <script src="../../service/DynamicElements.js"></script>
-    <script src="../../assets/js/AllJobs.js"></script>
+    <script src="../../assets/js/SelectedList.js"></script>
 </body>
 </html>
