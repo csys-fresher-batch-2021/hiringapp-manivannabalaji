@@ -64,7 +64,7 @@ function addListenerToButtons(){
                 let applicationId = e.target.parentNode.parentNode.querySelector('#id').innerText;
                 localStorage.setItem("APPLICANT_EMAIL", email);
                 localStorage.setItem("APPLICATION_ID", applicationId);
-                window.location.href = "#ApplicantDetails.html";
+                window.location.href = "ApplicantDetails.html";
             });
         });
     }
