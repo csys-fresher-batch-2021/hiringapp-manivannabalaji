@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recruit Desk</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <a  href="RecruiterDashboard.html">Dashboard</a>
+        <a href="JobsMenu.html">Jobs</a>
+        <a class="active" href="AllApplicants.html">Applicants</a>
+        <a href="#SelectedList.html">Selected List</a>
+        <a href="../../index.html">Logout</a>
+    </nav>
+    <header>
+        <h1 class="display-4 text-center">Recruit Desk</h1>
+    </header>
+    <main class="content">
+        <h5>Applicants</h5>
+        <input id="search" type="text" name="search" placeholder="Type here to filter by Job">
+        <section class="m-2">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Application Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Post</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="table-content"></tbody>
+            </table>
+        </section>
+    </main>
+    <script src="../../service/ApplicationManager.js"></script>
+    <script src="../../service/DynamicElements.js"></script>
+    <script src="../../assets/js/AllApplicants.js"></script>
+</body>
+</html>
