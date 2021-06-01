@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recruit Desk</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <a href="RecruiterDashboard.html">Dashboard</a>
+        <a href="JobsMenu.html">Jobs</a>
+        <a class="active" href="AllApplicants.html">Applicants</a>
+        <a href="#SelectedList.html">Selected List</a>
+        <a href="../../index.html">Logout</a>
+    </nav>
+    <header>
+        <h1 class="display-4 text-center">Recruit Desk</h1>
+    </header>
+    <main class="content">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Sno</th>
+                    <th scope="col">Section</th>
+                    <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><th scope="row">1</th><td>Name</td><td><span id="name"></span></td></tr>
+                <tr><th scope="row">2</th><td>Email</td><td><span id="email"></span></td></tr>
+                <tr><th scope="row">3</th><td>Mobile</td><td><span id="mobile"></span></td></tr>
+                <tr><th scope="row">4</th><td>Role</td><td><span id="jobTitle"></span></td></tr>
+                <tr><th scope="row">5</th><td>Year of Passing</td><td><span id="yop"></span></td></tr>
+                <tr><th scope="row">6</th><td>Work Experience</td><td><span id="experience"></span> Years</td></tr>
+                <tr><th scope="row">7</th><td>Address</td><td><span id="address"></span></td></tr>
+                <tr><th scope="row">8</th><td>Score (0 to 10)</td><td><input id="score" type="number" min="0" max="10" placeholder="score"></td></tr>
+                <tr>
+                    <th scope="row">9</th>
+                    <td>Selection Status</td>
+                    <td>
+                        <select name="status" id="status">
+                            <option value="pending">Pending</option>
+                            <option value="selected">Selected</option>
+                            <option value="notselected">Not Selected</option>
+                            <option value="hold">Hold</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><th scope="row">10</th><td>Comments</td><td><textarea id="comments" rows="7" cols="100" placeholder="Add comments"></textarea></td></tr>
+            </tbody>
+        </table>
+        <button id="updateBtn" class="btn btn-secondary">Update</button>
+        <button id="backBtn" class="btn btn-danger">Back</button>  
+    </main>
+    <script src="../../service/ApplicationManager.js"></script>
+    <script src="../../service/SelectionManager.js"></script>
+    <script src="../../assets/js/ApplicantDetails.js"></script>
+</body>
+</html>

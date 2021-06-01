@@ -22,7 +22,8 @@ function applyJob(){
         "jobId": jobId,
         "jobTitle": jobData.jobTitle,
         "status": "pending",
-        "score": ""
+        "score": "",
+        "comments": ""
     }
 
     let isValidName = InputValidator.validateName(name);
