@@ -1,5 +1,6 @@
 let tableContent = document.getElementById("table-content");
 let selectedList = SelectionManager.getAllSelection();
+let sortBtn = document.getElementById("sortBtn");
 
 displayData(selectedList);
 
@@ -41,6 +42,22 @@ function displayData(selectedList){
         tableContent.appendChild(tr);
     });
 }
+
+/**
+ * Function to sort selected list by ascending or descending order.
+ */
+sortBtn.addEventListener("click", function(){
+    tableContent.innerHTML = "";
+    let sortOrder = document.getElementById("order").value;
+    if(sortOrder === "ascending"){
+        let ascendingList = SelectionManager.orderByAscending(selectedList);
+        displayData(ascendingList);
+    } else if(sortOrder === "descending"){
+        let descendingList = SelectionManager.orderByDescending(selectedList);
+        displayData(descendingList);
+    }
+    addListenerToButtons();
+});
 
 addListenerToButtons();
 /**

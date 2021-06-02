@@ -20,6 +20,14 @@
         <h1 class="display-4 text-center">Recruit Desk</h1>
     </header>
     <main class="content">
+            <Label>Sort By</Label>
+            <select name="order" id="order">
+                <option value="disabled" disabled>Please select an option</option>
+                <option value="ascending">Lower to Higher Score</option>
+                <option value="descending">Higher to Lower Score</option>
+            </select>
+            <button id="sortBtn" class="btn btn-primary">Apply</button>
+            <button class="btn btn-primary" onclick="window.location.reload()">Clear</button>
         <table class="table table-hover">
             <thead>
                 <th scope="col">Application Id</th>
