@@ -10,31 +10,31 @@
 </head>
 <body>
     <nav class="sidebar">
-        <a class="active" href="ApplicantDashboard.html">Dashboard</a>
-        <a href="Applications.html">Applications</a>
+        <a  href="ApplicantDashboard.html">Dashboard</a>
+        <a class="active" href="Applications.html">Applications</a>
         <a href="../../index.html">Logout</a>
     </nav>
     <header>
         <h1 class="display-4 text-center">Recruit Desk</h1>
     </header>
     <main class="content">
-        <h5>Welcome <span id="userName"></span></h5>
-        <h6>Available Jobs</h6>
-        <input id="search" type="text" name="search" placeholder="Type here to search jobs">
+        <h6>My Applications</h6>
         <section class="m-2">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Job Id</th>
+                        <th>Application Id</th>
                         <th>Post</th>
-                        <th>Action</th>
+                        <th>Job Id</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody id="table-content"></tbody>
             </table>
+        </section>
     </main>
-    <script src="../../service/JobManager.js"></script>
+    <script src="../../service/ApplicationManager.js"></script>
     <script src="../../service/DynamicElements.js"></script>
-    <script src="../../assets/js/ApplicantDashboard.js"></script>
+    <script src="../../assets/js/Applications.js"></script>
 </body>
 </html>
