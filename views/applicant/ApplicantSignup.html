@@ -5,81 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Recruit Desk</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
         section{
             width: 450px;
-            height: 400px;
+            height: 330px;
             background-color: white;
             margin-top: 10%;
             padding: 20px;
             border-radius: 5px;
         }
+        body{
+            font-family: 'Poppins', sans-serif;
+            background: #00C9FF;
+            background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);
+            background: linear-gradient(to right, #92FE9D, #00C9FF);
+            }
     </style>
 </head>
-<body style="background-color: #3498db;">
+<body>
+    <h1 class="display-4 text-center bg-light">Recruit Desk</h1>
     <main class="d-flex justify-content-center">
         <section>
-            <h1 class="display-4">Applicant Signup</h1>
+            <h4 class="text-center">Applicant Signup</h4>
             <form onsubmit="createAccount()">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Name" pattern="([^\s][A-z\s]+)" title="Please enter alphabets and spaces(Not first)" required>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Name" pattern="([^\s][A-z\s]+)" title="Please enter alphabets and spaces(Not first)" onfocus="clearMessage()" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" onfocus="clearMessage()" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" pattern=".{8,}" title="Minimum 8 characters" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" pattern=".{8,}" title="Minimum 8 characters" onfocus="clearMessage()" required>
                 </div>
                 <div class="form-group">
                     <p id="errorText" class="text-danger"></p>
                 </div>
-                <button class="btn btn-primary">SignUp</button>
+                <button class="btn btn-warning btn-block">SignUp</button>
             </form>
         </section>
     </main>
     <script src="../../service/ApplicantManager.js"></script>
     <script src="../../validator/InputValidator.js"></script>
-    <script type="text/javascript">
-        /**
-         * Function to store user data to localstorage
-         */
-        function createAccount(){ 
-            event.preventDefault();
-            let name = document.getElementById('name').value;
-            let email = document.getElementById('email').value;
-            let password = document.getElementById('password').value;
-
-            let isvalidEmail = validateEmail(email);
-            let isvalidName = InputValidator.validateName(name);
-
-            if(isvalidName && isvalidEmail){
-                let newApplicant = {
-                "name": name,
-                "email": email,
-                "password": password
-                }
-                ApplicantManager.addApplicant(newApplicant);
-                alert('Account created successfully.');
-                window.location.href = "ApplicantLogin.html";
-            } else if(!isvalidEmail){
-                document.getElementById('errorText').innerText = "Email address already in use.";
-            } else if (!isvalidName){
-                document.getElementById('errorText').innerText = "Name must be only alphabets and spaces.";
-            }
-        }
-        /**
-         * Function to check whether email already exists.
-         * @param {string} email
-         */
-        function validateEmail(email){
-            let valid = true;
-            let applicant = ApplicantManager.getApplicant(email);
-            if(applicant != null){
-                valid = false;
-            }
-            return valid;
-        }    
-    </script>
+    <script src="../../assets/js/ApplicantSignup.js"></script>
 </body>
 </html>

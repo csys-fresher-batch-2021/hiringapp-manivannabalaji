@@ -5,77 +5,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <title>Recruit Desk</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
             section{
                 width: 400px;
-                height: 400px;
+                height: 300px;
                 background-color: white;
-                margin-top: 10%;
+                margin-top: 5%;
                 padding: 20px;
                 border-radius: 5px;
             }
+            body{
+                font-family: 'Poppins', sans-serif;
+                background: #00C9FF;
+                background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);
+                background: linear-gradient(to right, #92FE9D, #00C9FF);
+            }
         </style>
     </head>
-    <body style="background-color: #3498db;">
+    <body>
+        <h1 class="display-4 text-center bg-light">Recruit Desk</h1>
         <main class="container d-flex justify-content-center">
             <section>
-                <h1 class="display-4">Recruiter Login</h1>
+                <h4 class="text-center">Recruiter Login</h4>
                 <form onsubmit="authenticate()">
                     <div class="form-group">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" required autofocus>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" required  onfocus="clearMessage()" autofocus>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required onfocus="clearMessage()">
                     </div>
                     <div class="form-group">
                         <p id="errorText" class="text-danger"></p>
                     </div>
-                    <button class="btn btn-primary">Login</button>
+                    <button class="btn btn-warning btn-block">Login</button>
                 </form>
             </section>
         </main>
-
-        <script type="text/javascript">
-            /**
-             *Function to perform authentication. 
-             */
-            function authenticate(){
-                event.preventDefault();
-                let email = document.getElementById('email').value;
-                let password = document.getElementById('password').value;
-                if(validateEmail(email) && validatePassword(password)){
-                    localStorage.setItem('USER', JSON.stringify({userType: "recruiter"}));
-                    window.location.href = 'RecruiterDashboard.html';
-                } else{
-                   document.getElementById('errorText').innerText = "Invalid Credentials, Try again!";
-                }
-            }
-
-            /**
-             * Function to validate email
-             * @params {string} email
-             */
-            function validateEmail(email){
-                let valid = false;
-                if(email === 'recruiter@live.com'){
-                    valid = true;
-                }
-                return valid;
-            }
-
-            /**
-             * Function to validate password.
-             * @params {string} password
-             */
-            function validatePassword(password){
-                let valid = false;
-                if(password === 'pass1234'){
-                    valid = true;
-                }
-                return valid;
-            }
-
-        </script>
+        <script src="../../service/RecruiterManager.js"></script>
+        <script src="../../assets/js/RecruiterLogin.js"></script>
     </body>
 </html>

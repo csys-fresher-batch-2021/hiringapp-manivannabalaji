@@ -7,6 +7,7 @@
     <title>Recruit Desk</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <nav class="sidebar">
@@ -21,7 +22,10 @@
     </header>
     <main class="content">
         <h5>Applicants</h5>
-        <input id="search" type="text" name="search" placeholder="Type here to filter by Job">
+        <div class="form-group">
+            <input id="search" type="text" name="search" class="form-control w-25 d-inline" placeholder="Search Job" oninput="searchApplication()">
+            <input id="searchName" type="text" name="searchName" class="form-control w-25 d-inline" placeholder="Search Name" oninput="searchName()">
+        </div>
         <section class="m-2">
             <table class="table table-hover">
                 <thead>

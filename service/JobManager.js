@@ -1,46 +1,28 @@
-let openings = [];
-
 class JobManager{
     /**
      * Function to retrieve all job offers from storage.
      */
     static getJobOffers(){
-        let openings = JSON.parse(localStorage.getItem('OPENINGS')) || [];
-        return openings;
+        let url = "http://localhost:3000/api/jobs";
+        return axios.get(url);
     }
 
     /**
      * Function to add new job offer.
      * @param {*} offer 
      */
-    static addJobOffer(offer){
-        openings = this.getJobOffers();
-        let length = openings.length;
-        if(length > 0){
-            let lastElementId = parseInt(openings[length-1].id);
-            offer['id'] = lastElementId + 1;
-        } else{
-            offer['id'] = 1;
-        }
-        openings.push(offer);
-        this.saveToStorage(openings);
-        console.log("Job added successfully");
+    static addJobOffer(jobOffer){
+        let url = "http://localhost:3000/api/jobs";
+        return axios.post(url, jobOffer);
     }
 
     /**
      * Function to remove an existing job offer from storage.
      * @param {*} jobOfferId 
      */
-    static removeJobOffer(jobOfferId){
-        let openings = this.getJobOffers();
-        let index = openings.findIndex(offer => offer.id == jobOfferId);
-        if(index != -1){
-            openings.splice(index, 1);
-            this.saveToStorage(openings);
-            console.log("Job Removed Successfully");
-        } else{
-            console.log("Error : Job offer not available.");
-        }
+    static removeJobOffer(jobId){
+        let url = "http://localhost:3000/api/jobs/" + jobId;
+        return axios.delete(url);
     }
 
     /**
@@ -48,27 +30,19 @@ class JobManager{
      * @param {*} oldJobOfferId 
      * @param {*} newJobOffer 
      */
-    static updateJobOffer(oldJobOfferId, newJobOffer){
-        let openings = this.getJobOffers();
-        let index = openings.findIndex(offer => offer.id == oldJobOfferId);
-        if(index != -1){
-            openings.splice(index, 1, newJobOffer);
-            this.saveToStorage(openings);
-            console.log("Job updated successfully");
-        } else{
-            console.log("Error : Job Offer not available");
-        }
+    static updateJobOffer(oldJobOfferId, updatedJob){
+        let url = "http://localhost:3000/api/jobs/" + oldJobOfferId;
+        return axios.put(url, updatedJob);
     }
 
     /**
      * Function to search specific job from storage.
      * @param {*} jobOfferName 
      */
-    static searchJobOffer(jobOfferName){
+    static searchJobOffer(jobOfferName, jobOffers){
         let searchedJobOffer = [];
-        openings = this.getJobOffers();
-        openings.forEach(element => {
-            if(element.jobTitle.toLowerCase().includes(jobOfferName)){
+        jobOffers.forEach(element => {
+            if(element.jobtitle.toLowerCase().includes(jobOfferName)){
                 searchedJobOffer.push(element);
             }
         });
@@ -80,15 +54,13 @@ class JobManager{
      * @param {number} id 
      */
     static getJobOffer(id){
-        let jobOffer;
-        openings = this.getJobOffers();
-        for(let i = 0; i < openings.length; i++){
-            if(openings[i].id == id){
-                jobOffer = openings[i];
-                break;
-            }
-        }
-        return jobOffer;
+        let url = "http://localhost:3000/api/jobs/" + id;
+        return axios.get(url);
+    }
+
+    static getStatus(){
+        let url = "http://localhost:3000/api/dashboard";
+        return axios.get(url);
     }
 
     /**
@@ -97,13 +69,5 @@ class JobManager{
     static getCurrentJobId(){
         let jobId = localStorage.getItem('JOB_VIEW_ID');
         return jobId;
-    }
-
-    /**
-     * Function to save job offer to storage.
-     * @param {*} openings 
-     */
-    static saveToStorage(openings){
-        localStorage.setItem("OPENINGS", JSON.stringify(openings));
     }
 }

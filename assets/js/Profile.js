@@ -31,27 +31,22 @@ function displayData(profile){
     document.getElementById('address').value = profile.address;
 }
 
-/**
- * Function to save new application to storage.
- */
-function applyJob(){
+async function updateProfile() {
     event.preventDefault();
     let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
     let mobile = document.getElementById('mobile').value;
     let yop = document.getElementById('yop').value;
     let experience = document.getElementById('experience').value;
     let address = document.getElementById('address').value;
-    let jobId = localStorage.getItem("JOB_VIEW_ID");
-
-    let application = {
+    let errorText = document.getElementById('errorText');
+    errorText.innerText = "";
+    let updatedData = {
         "name": name,
-        "email": email,
         "mobile": mobile,
         "yop": yop,
         "experience": experience,
-        "address": address,
-    }
+        "address": address
+    };
 
     let isValidName = InputValidator.validateName(name);
     let isValidMobile = InputValidator.validateMobile(mobile);
@@ -60,28 +55,23 @@ function applyJob(){
     let isInvalidAddress = InputValidator.checkEmptyData(address);
 
     if(!isValidName){
-        document.getElementById('errorText').innerText = "Name must have only alphabets and spaces (Starting with alphabet is must).";
+        errorText.innerText = "Name must have only alphabets and spaces (Starting with alphabet is must).";
     } else if(!isValidMobile){
-        document.getElementById('errorText').innerText = "Please enter your 10 digit mobile number.";
+        errorText.innerText = "Please enter your 10 digit mobile number.";
     } else if(!isValidYear){
-        document.getElementById('errorText').innerText = "Please enter a valid Year of Passing";
+        errorText.innerText = "Please enter a valid Year of Passing";
     } else if(!isValidExperience){
-        document.getElementById('errorText').innerText = "Work experience should have 1 or 2 digits";
-    }else if(isInvalidAddress){
-        document.getElementById('errorText').innerText = "Invalid Address";
+        errorText.innerText = "Work experience should have 1 or 2 digits";
+    } else if(isInvalidAddress){
+        errorText.innerText = "Invalid Address";
     } else{
-        saveApplication(jobId, application);
-    }
-}
-
-async function saveApplication(jobId, application){
-    try{
-        let result = await ApplicationManager.addApplication(jobId, application);
-        if(result != null){
-            alert("Application saved successfully.");
-            window.location.href = "ApplicantDashboard.html";
+        try{
+            let result = await ApplicantManager.updateProfile(email, updatedData);
+            if(result != null){
+                alert("Profile Updated successfully");
+            }
+        } catch(err){
+            document.getElementById('errorText').innerText = err.response.data.errorMessage;
         }
-    } catch(err){
-        document.getElementById('errorText').innerText = err.response.data.errorMessage;
     }
 }

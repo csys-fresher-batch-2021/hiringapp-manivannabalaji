@@ -30,22 +30,11 @@ class InputValidator{
      * @param {*} job 
      */
     static checkFormFields(job){
-        let jobTitle = job.jobTitle;
-        let jobType = job.jobType;
-        let description = job.description;
-        let skills = job.skills;
-        let minYear = job.minYears;
-        let maxYear = job.maxYears;
-        let minSalary = job.minSalary;
-        let maxSalary = job.maxSalary;
-        let location = job.location;
-        let qualification = job.qualification;
-
         let valid = true;
-        if( this.checkEmptyData(jobTitle) || this.checkEmptyData(jobType) || this.checkEmptyData(description) 
-            || this.checkEmptyData(skills) || this.checkEmptyData(minYear) || this.checkEmptyData(maxYear) 
-            || this.checkEmptyData(minSalary) || this.checkEmptyData(maxSalary) || this.checkEmptyData(location) 
-            || this.checkEmptyData(qualification)){
+        if( this.checkEmptyData(job.jobtitle) || this.checkEmptyData(job.jobtype) || this.checkEmptyData(job.description) 
+            || this.checkEmptyData(job.skills) || this.checkEmptyData(job.minyears) || this.checkEmptyData(job.maxyears) 
+            || this.checkEmptyData(job.minsalary) || this.checkEmptyData(job.maxsalary) || this.checkEmptyData(job.location) 
+            || this.checkEmptyData(job.qualification) || this.checkEmptyData(job.end_date)){
                 valid = false;
         }
         return valid;
@@ -57,11 +46,26 @@ class InputValidator{
      */
     static checkEmptyData(data){
         let isValid = false;
-        if(data.trim().length < 1){
+        if(data.toString().trim().length < 1){
             isValid = true;
         }
         return isValid;
     }
+
+    /**
+     * Function to verify all form fields are filled by user.
+     * @param {*} job 
+     */
+    static checkUpdateFields(job){
+        let valid = true;
+        if(this.checkEmptyData(job.jobtype) || this.checkEmptyData(job.description) || this.checkEmptyData(job.skills) 
+            || this.checkEmptyData(job.minyears) || this.checkEmptyData(job.maxyears) || this.checkEmptyData(job.minsalary) 
+            || this.checkEmptyData(job.maxsalary) || this.checkEmptyData(job.qualification) || this.checkEmptyData(job.end_date)){
+                valid = false;
+        }
+        return valid;
+    }
+
      /**
      * Function to check name has only alphabets, spaces and must start with alphabet.
      * @param {*} name 
@@ -108,9 +112,34 @@ class InputValidator{
      * Function to check whether the work experience has length 1 to 2.
      * @param {*} experience 
      */
-    static validateExperience(experience){
+    static validateExpYear(experience){
         let valid = false;
         if(experience.length >= 1 && experience.length <= 2){
+            valid = true;
+        }
+        return valid;
+    }
+    
+    /**
+     * Function to validate email
+     * @param {*} email 
+     */
+    static validateEmail(email){
+        let valid = false;
+        let pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if(email.match(pattern)){
+            valid = true;
+        }
+        return valid;
+    }
+
+    /**
+     * Function to validate password length
+     * @param {*} email 
+     */
+    static validatePassword(password){
+        let valid = false;
+        if(password.length >= 8){
             valid = true;
         }
         return valid;

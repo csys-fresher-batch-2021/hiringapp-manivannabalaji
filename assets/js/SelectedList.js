@@ -1,8 +1,19 @@
 let tableContent = document.getElementById("table-content");
-let selectedList = SelectionManager.getAllSelection();
 let sortBtn = document.getElementById("sortBtn");
+let result;
 
-displayData(selectedList);
+getSelectedList();
+
+async function getSelectedList(){
+    try{
+        result = await SelectionManager.getAllSelection();
+        if(result != null){
+            displayData(result.data);
+        }
+    } catch(err){
+        console.log(err.response.data.errorMessage);
+    }
+}
 
 /**
  * Function to show selected list in table.
@@ -13,7 +24,7 @@ function displayData(selectedList){
         //creating tr tag for each application.
         let tr = DynamicElements.createTableRow();
         //creating th tag for application Id.
-        let th = DynamicElements.createTableHeader(element.applicationId);
+        let th = DynamicElements.createTableHeader(element.applicationid);
         tr.appendChild(th);
         //creating td tag for applicant name.
         let tdName = DynamicElements.createTableData();
@@ -21,7 +32,7 @@ function displayData(selectedList){
         tr.appendChild(tdName);
         //creating td tag for job post title.
         let tdPost = DynamicElements.createTableData();
-        tdPost.innerText = element.jobTitle;
+        tdPost.innerText = element.jobtitle;
         tr.appendChild(tdPost);
         //creating td tag for applicant score.
         let tdScore = DynamicElements.createTableData();
@@ -41,6 +52,7 @@ function displayData(selectedList){
         //appending tr tag to tbody.
         tableContent.appendChild(tr);
     });
+    addListenerToButtons();
 }
 
 /**
@@ -50,16 +62,15 @@ sortBtn.addEventListener("click", function(){
     tableContent.innerHTML = "";
     let sortOrder = document.getElementById("order").value;
     if(sortOrder === "ascending"){
-        let ascendingList = SelectionManager.orderByAscending(selectedList);
+        let ascendingList = SelectionManager.orderByAscending(result.data);
         displayData(ascendingList);
     } else if(sortOrder === "descending"){
-        let descendingList = SelectionManager.orderByDescending(selectedList);
+        let descendingList = SelectionManager.orderByDescending(result.data);
         displayData(descendingList);
     }
     addListenerToButtons();
 });
 
-addListenerToButtons();
 /**
  * Function to add event listener to all dynamically generated buttons.
  */

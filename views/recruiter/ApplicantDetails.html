@@ -7,6 +7,7 @@
     <title>Recruit Desk</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <nav class="sidebar">
@@ -36,12 +37,12 @@
                 <tr><th scope="row">5</th><td>Year of Passing</td><td><span id="yop"></span></td></tr>
                 <tr><th scope="row">6</th><td>Work Experience</td><td><span id="experience"></span> Years</td></tr>
                 <tr><th scope="row">7</th><td>Address</td><td><span id="address"></span></td></tr>
-                <tr><th scope="row">8</th><td>Score (0 to 10)</td><td><input id="score" type="number" min="0" max="10" placeholder="score"></td></tr>
+                <tr><th scope="row">8</th><td>Score (0 to 10)</td><td><input id="score" class="form-control w-25" type="number" min="0" max="10" placeholder="score"></td></tr>
                 <tr>
                     <th scope="row">9</th>
                     <td>Selection Status</td>
                     <td>
-                        <select name="status" id="status">
+                        <select name="status" id="status" class="form-control w-25">
                             <option value="pending">Pending</option>
                             <option value="selected">Selected</option>
                             <option value="notselected">Not Selected</option>
@@ -49,7 +50,7 @@
                         </select>
                     </td>
                 </tr>
-                <tr><th scope="row">10</th><td>Comments</td><td><textarea id="comments" rows="7" cols="100" placeholder="Add comments"></textarea></td></tr>
+                <tr><th scope="row">10</th><td>Comments</td><td><textarea id="comments" class="form-control" rows="7" cols="100" placeholder="Add comments"></textarea></td></tr>
             </tbody>
         </table>
         <button id="updateBtn" class="btn btn-secondary">Update</button>

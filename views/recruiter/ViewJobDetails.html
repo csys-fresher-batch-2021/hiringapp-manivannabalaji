@@ -7,6 +7,7 @@
     <title>Recruit Desk</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <nav class="sidebar">
@@ -38,12 +39,16 @@
                     <tr><td>Location</td><td><span id="location"></span></td></tr>
                     <tr><td>No of Vacancy</td><td><span id="noOfVacancy"></span></td></tr>
                     <tr><td>Educational Qualification</td><td><span id="qualification"></span></td></tr>
+                    <tr><td>End Date</td><td><span id="endDate"></span></td></tr>
                 </tbody>
             </table>
+            
+            
             <button id="updateBtn" class="btn btn-secondary">Update Job Post</button>
             <button id="deleteBtn" class="btn btn-danger">Delete Job Post</button>
     </main>
 </body>
     <script src="../../service/JobManager.js"></script>
     <script src="../../assets/js/ViewJobDetails.js"></script>
+
 </html>

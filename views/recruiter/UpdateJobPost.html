@@ -7,6 +7,7 @@
     <title>Recruit Desk</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <nav class="sidebar">
@@ -24,49 +25,57 @@
         <form onsubmit="updatePost()">
             <div class="form-group">
                 <label for="jobTitle">Job Posting Headline</label>
-                <input type="text" name="jobTitle" id="jobTitle" placeholder="Job Posting Headline" required>
+                <input type="text" name="jobTitle" id="jobTitle" class="form-control" placeholder="Job Posting Headline" disabled>
             </div>
             <div class="form-group">
                 <label for="jobType">Employment Type</label>
-                <select name="jobType" id="jobType" required>
+                <select name="jobType" id="jobType" class="form-control" required>
                     <option value="Full">Full Time</option>
                     <option value="Part">Part Time</option>
                 </select>
             </div>
             <label>Job Description</label>
             <div class="form-group">
-                <textarea name="description" id="description" cols="100" rows="10" placeholder="" required></textarea>
+                <textarea name="description" id="description" class="form-control" cols="100" rows="10" placeholder="" required></textarea>
             </div>
             <div class="form-group">
                 <label for="skills">Key Skills</label>
-                <input type="text" name="skills" id="skills" placeholder="Skills Required" required>
+                <input type="text" name="skills" id="skills" class="form-control" placeholder="Skills Required" required>
             </div>
             <div class="form-group">
                 <label for="">Work Experience (Years)</label>
-                <label for="minYears">Min</label>
-                <input type="number" name="minYears" id="minYears" required>
-                <label for="maxYears">Max</label>
-                <input type="number" name="maxYears" id="maxYears" required>
+                <input type="number" name="minYears" id="minYears" class="form-control w-25 d-inline" placeholder="Min" required>
+                <input type="number" name="maxYears" id="maxYears" class="form-control w-25 d-inline" placeholder="Max" required>
             </div>
             <div class="form-group">
                 <label for="">Annual Salary Range</label>
-                <label for="minSalary">From</label>
-                <input type="number" name="minSalary" id="minSalary" required>
-                <label for="maxSalary">To</label>
-                <input type="number" name="maxSalary" id="maxSalary" required>
+                <input type="number" name="minSalary" id="minSalary" min="200000" class="form-control w-25 d-inline" placeholder="Min" required>
+                <input type="number" name="maxSalary" id="maxSalary" min="200000" class="form-control w-25 d-inline" placeholder="Max" required>
             </div>
             <div class="form-group">
                 <label for="location">Location</label>
-                <input type="text" name="location" id="location" placeholder="Location" required>
+                <input type="text" name="location" id="location" class="form-control w-25" placeholder="Location" disabled>
             </div>
             <div class="form-group">
                 <label for="noOfVacancy">No of Vacancies</label>
-                <input type="number" name="noOfVacancy" id="noOfVacancy" placeholder="No of Vacancy" required>
+                <input type="number" name="noOfVacancy" id="noOfVacancy" class="form-control w-25" placeholder="No of Vacancy" min="1" max="100" required>
             </div>
             <div class="form-group">
                 <label for="qualification">Educational Qualification</label>
-                <input type="text" name="qualification" id="qualification" placeholder="Qualification" required>
+                <select name="qualification" id="qualification" class="form-control w-25" required>
+                    <option value="disabled" disabled>Select an option</option>
+                    <option value="BE">Bachelor of Engineering</option>
+                    <option value="ME">Master of Engineering</option>
+                    <option value="Arts">Arts</option>
+                    <option value="Business">Business Administration</option>
+                    <option value="Any">Any Degree</option>
+                </select>
             </div>
+            <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input type="date" name="endDate" id="endDate" class="form-control w-25" required>
+            </div>
+            <p id="errorText" class="text-danger"></p>
             <button id="updateBtn" class="btn btn-secondary">Update Job</button>
         </form>
     </main>
