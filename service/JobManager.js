@@ -36,6 +36,16 @@ class JobManager{
     }
 
     /**
+     * Function to update existing job offer.
+     * @param {*} oldJobOfferId 
+     * @param {*} newJobOffer 
+     */
+    static archivePost(id){
+        let url = "http://localhost:3000/api/jobs/" + id + "/archive";
+        return axios.put(url);
+    }
+
+    /**
      * Function to search specific job from storage.
      * @param {*} jobOfferName 
      */
@@ -47,6 +57,20 @@ class JobManager{
             }
         });
         return searchedJobOffer;
+    }
+
+    /**
+     * Function to search specific job from storage.
+     * @param {*} jobOfferName 
+     */
+    static searchJobLocation(jobLocation, jobOffers){
+        let searchedJobLocation = [];
+        jobOffers.forEach(element => {
+            if(element.location.toLowerCase().includes(jobLocation)){
+                searchedJobLocation.push(element);
+            }
+        });
+        return searchedJobLocation;
     }
 
     /**

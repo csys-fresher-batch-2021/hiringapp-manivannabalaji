@@ -49,4 +49,34 @@ function setJobDetailsInPage(jobOffer){
     document.getElementById('noOfVacancy').innerText = jobOffer.vacancy;
     document.getElementById('qualification').innerText = jobOffer.qualification;
     document.getElementById('endDate').innerText = jobOffer.end_date;
+    let isDateExpired = checkExpireDate(jobOffer.end_date);
+    if(isDateExpired){
+        document.getElementById('status').innerText = "Closed";
+    } else{
+        document.getElementById('status').innerText = "Opened";
+    }
+}
+
+async function archivePost() {
+    let jobId = JobManager.getCurrentJobId();
+    try{
+        let result = await JobManager.archivePost(jobId);
+        if(result != null){
+            alert("Job archived successfully");
+            window.location.href = "AllJobs.html";
+        }
+    } catch(err){
+        alert(err.response.data.errorMessage);
+    }
+}
+
+function checkExpireDate(date) {
+    let isExpired = false;
+    let endDate = new Date(date);
+    let todayString = new Date().toJSON().substr(0, 10);
+    let today = new Date(todayString);
+    if(endDate < today){
+        isExpired = true;
+    }
+    return isExpired;
 }

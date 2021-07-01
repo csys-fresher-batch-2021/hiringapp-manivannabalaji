@@ -43,8 +43,13 @@ function displayData(selectedList){
         tdEmail.innerText = element.email;
         tdEmail.className = "email";
         tr.appendChild(tdEmail);
+        //creating td tag for location
+        let tdLocation = DynamicElements.createTableData();
+        tdLocation.innerText = element.location;
+        tr.appendChild(tdLocation);
         //creating td tag for action button
         let tdButton = DynamicElements.createTableData();
+        tdButton.className = "noExport";
         //creating button
         let button = DynamicElements.createButton();
         tdButton.appendChild(button);
@@ -61,14 +66,21 @@ function displayData(selectedList){
 sortBtn.addEventListener("click", function(){
     tableContent.innerHTML = "";
     let sortOrder = document.getElementById("order").value;
-    if(sortOrder === "ascending"){
-        let ascendingList = SelectionManager.orderByAscending(result.data);
-        displayData(ascendingList);
-    } else if(sortOrder === "descending"){
-        let descendingList = SelectionManager.orderByDescending(result.data);
-        displayData(descendingList);
+    let job = document.getElementById("job_search").value;
+    let location = document.getElementById("job_location").value;
+    if(job === "" && location === ""){
+        performSorting(sortOrder, result.data);
+    } else if(job === ""){
+       let searchedLocation = JobManager.searchJobLocation(location.toLowerCase(), result.data); 
+       performSorting(sortOrder, searchedLocation);
+    } else if (location === ""){
+        let searchedJob = JobManager.searchJobOffer(job.toLowerCase(), result.data);
+        performSorting(sortOrder, searchedJob);
+    } else{
+        let searchedJob = JobManager.searchJobOffer(job.toLowerCase(), result.data);
+        let searchedLocation = JobManager.searchJobLocation(location, searchedJob);
+        performSorting(sortOrder, searchedLocation); 
     }
-    addListenerToButtons();
 });
 
 /**
@@ -86,4 +98,21 @@ function addListenerToButtons(){
             });
         });
     }
+}
+
+function performSorting(sortOrder, data) {
+    if(sortOrder === "ascending"){
+        let ascendingList = SelectionManager.orderByAscending(data);
+        displayData(ascendingList);
+    } else if(sortOrder === "descending"){
+        let descendingList = SelectionManager.orderByDescending(data);
+        displayData(descendingList);
+    }
+}
+
+function generateSheet() {
+    $("#selectedTable").table2excel({
+        exclude: ".noExport",
+        filename: "SelectedList.xls",
+    });
 }

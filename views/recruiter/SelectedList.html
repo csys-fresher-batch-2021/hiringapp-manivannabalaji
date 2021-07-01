@@ -21,30 +21,36 @@
         <h1 class="display-4 text-center">Recruit Desk</h1>
     </header>
     <main class="content">
-            <Label>Sort By</Label>
-            <div class="form-group">
-                <select name="order" id="order" class="form-control w-25 m-2">
-                    <option value="disabled" disabled>Please select an option</option>
-                    <option value="ascending">Lower to Higher Score</option>
-                    <option value="descending">Higher to Lower Score</option>
-                </select>
-                <button id="sortBtn" class="btn btn-primary">Apply</button>
-                <button class="btn btn-primary" onclick="window.location.reload()">Clear</button>
-            </div>
-        <table class="table table-hover">
+        <Label>Sort By</Label>
+        <div class="form-group">
+            <select name="order" id="order" class="form-control w-25 d-inline">
+                <option value="disabled" disabled>Please select an option</option>
+                <option value="ascending">Lower to Higher Score</option>
+                <option value="descending">Higher to Lower Score</option>
+            </select>
+            <input type="text" name="job_search" id="job_search" class="form-control w-25 d-inline" placeholder="Search Job">
+            <input type="text" name="job_location" id="job_location" class="form-control w-25 d-inline" placeholder="Search Location">
+            <button id="sortBtn" class="btn btn-primary d-inline">Apply</button>
+        </div>
+        <button class="btn btn-success" onclick="generateSheet()">Export as Spreadsheet</button>
+        <table id="selectedTable" class="table table-hover">
             <thead>
                 <th scope="col">Application Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Post</th>
                 <th scope="col">Score</th>
                 <th scope="col">Email</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Location</th>
+                <th scope="col" class="noExport">Actions</th>
             </thead>
             <tbody id="table-content"></tbody>
         </table>
     </main>
+    <script src="../../service/JobManager.js"></script>
     <script src="../../service/SelectionManager.js"></script>
     <script src="../../service/DynamicElements.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
     <script src="../../assets/js/SelectedList.js"></script>
 </body>
 </html>

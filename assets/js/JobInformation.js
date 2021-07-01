@@ -34,4 +34,23 @@ function displayData(jobOffer){
     document.getElementById('noOfVacancy').innerText = jobOffer.vacancy;
     document.getElementById('qualification').innerText = jobOffer.qualification;
     document.getElementById('endDate').innerText = jobOffer.end_date;
+    let isDateExpired = checkExpireDate(jobOffer.end_date);
+    if(isDateExpired){
+        document.getElementById('status').innerText = "Closed";
+        applyBtn.setAttribute('disabled', true);
+        applyBtn.classList.add('disabled');
+    } else{
+        document.getElementById('status').innerText = "Opened";
+    }
+}
+
+function checkExpireDate(date) {
+    let isExpired = false;
+    let endDate = new Date(date);
+    let todayString = new Date().toJSON().substr(0, 10);
+    let today = new Date(todayString);
+    if(endDate < today){
+        isExpired = true;
+    }
+    return isExpired;
 }
