@@ -31,6 +31,14 @@ function displayJobs(allJobs){
         let td = DynamicElements.createTableData();
         td.innerText = element.jobtitle;
         tr.appendChild(td);
+        //creating td tag for skills
+        let tdSkills = DynamicElements.createTableData();
+        tdSkills.innerText = element.skills;
+        tr.appendChild(tdSkills);
+        //creating td tag for location
+        let tdLocation = DynamicElements.createTableData();
+        tdLocation.innerText = element.location;
+        tr.appendChild(tdLocation);
         //creating td tag for action button
         let tdButton = DynamicElements.createTableData();
         //creating button
@@ -76,4 +84,15 @@ function addListenerToButtons(){
             });
         });
     }
+}
+
+function searchSkills() {
+    let searchText = document.getElementById('searchSkills').value;
+    tableContent.innerHTML = "";
+    let searchedSkills = JobManager.searchJobBySkills(searchText, allJobs.data);
+    if(searchedSkills.length < 1){
+        tableContent.innerHTML = "<p>No Jobs Found!";
+    }
+    displayJobs(searchedSkills);
+    addListenerToButtons();
 }

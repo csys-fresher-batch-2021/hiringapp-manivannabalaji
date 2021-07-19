@@ -14,7 +14,7 @@ async function getProfile(email) {
             displayData(result.data);
         }
     } catch(err){
-        console.log(err.response.data.errorMessage);
+        document.getElementById('errorText').innerText = err.response.data.errorMessage;
     }
 }
 
@@ -74,4 +74,9 @@ async function updateProfile() {
             document.getElementById('errorText').innerText = err.response.data.errorMessage;
         }
     }
+}
+
+function logout() {
+    localStorage.removeItem('USER');
+    window.location.href="../../index.html";
 }

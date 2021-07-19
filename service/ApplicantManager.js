@@ -27,7 +27,9 @@ class ApplicantManager{
      */
     static getProfile(email){
         let url = "http://localhost:3000/api/user/profile/" + email;
-        return axios.get(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
@@ -36,6 +38,16 @@ class ApplicantManager{
      */
     static updateProfile(email, updatedProfile){
         let url = "http://localhost:3000/api/user/profile/" + email;
-        return axios.post(url, updatedProfile);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.post(url, updatedProfile, config);
+    }
+
+    /**
+     * Function to return user auth token
+     */
+    static getUserToken(){
+        let token = JSON.parse(localStorage.getItem('USER')).token;
+        return token;
     }
 }

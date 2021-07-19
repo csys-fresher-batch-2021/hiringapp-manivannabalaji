@@ -7,7 +7,9 @@ class ApplicationManager{
      */
     static addApplication(jobId, application){
         let url = "http://localhost:3000/api/user/" + jobId + "/apply";
-        return axios.post(url, application);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.post(url, application, config);
     }
 
     /**
@@ -15,7 +17,9 @@ class ApplicationManager{
      */
     static getAllApplications(){
         let url = "http://localhost:3000/api/applications";
-        return axios.get(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
@@ -24,7 +28,9 @@ class ApplicationManager{
      */
     static getApplication(id){
         let url = "http://localhost:3000/api/applications/" + id;
-        return axios.get(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
@@ -61,7 +67,9 @@ class ApplicationManager{
      */
     static getApplicationsByUser(email){
         let url = "http://localhost:3000/api/user/applications/" + email;
-        return axios.get(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
@@ -71,6 +79,27 @@ class ApplicationManager{
      */
     static updateApplication(applicationId, updatedData){
         let url = "http://localhost:3000/api/applications/" + applicationId;
-        return axios.patch(url, updatedData);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.patch(url, updatedData, config);
+    }
+
+    /**
+     * Function to store user feedback.
+     * @param {*} feedback 
+     */
+    static sendFeedback(feedback){
+        let url = "http://localhost:3000/api/feedback";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.post(url, feedback, config);
+    }
+
+    /**
+     * Function to return user auth token
+     */
+    static getUserToken(){
+        let token = JSON.parse(localStorage.getItem('USER')).token;
+        return token;
     }
 }

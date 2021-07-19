@@ -11,7 +11,6 @@ async function getApplications(email){
     try{
         let result = await ApplicationManager.getApplicationsByUser(email);
         if(result != null){
-            console.log(result);
             showDetails(result.data);
         }
     } catch(err){
@@ -42,7 +41,34 @@ function showDetails(userApplications){
         let tdStatus = DynamicElements.createTableData();
         tdStatus.innerText = element.status;
         tr.appendChild(tdStatus);
+        //creating button for actions
+        if(element.status != 'pending'){
+            let tdButton = DynamicElements.createTableData();
+            let button = DynamicElements.createButton();
+            button.innerText = "Feedback";
+            tdButton.appendChild(button);
+            tr.appendChild(tdButton);
+        }
         //appending the tr to tbody in html.
         contentTable.appendChild(tr);
     });
+    addListenerToButtons();
+}
+
+/**
+ * Function to add event listener to all dynamically generated buttons.
+ */
+function addListenerToButtons(){
+    if(document.querySelector('button')){
+        document.querySelectorAll('.viewBtn').forEach(function(event){
+            event.addEventListener('click', function(e){
+                // get jobid from th field which is two level up for button.
+                let jobId = e.target.parentNode.parentNode.querySelector('th').innerText;
+                let jobName = e.target.parentNode.parentNode.querySelector('td').innerText;
+                localStorage.setItem("JOB_VIEW_ID", jobId);
+                localStorage.setItem("JOB_VIEW_TITLE", jobName);
+                window.location.href = "InterviewFeedback.html";
+            });
+        });
+    }
 }

@@ -23,7 +23,8 @@
         <h5>Welcome <span id="userName"></span></h5>
         <h6>Available Jobs</h6>
         <div class="form-group">
-            <input id="search" type="text" name="search" class="form-control w-25" placeholder="Type here to search jobs" oninput="searchJob()">
+            <input id="searchJob" type="text" name="searchJob" class="form-control d-inline w-25" placeholder="Search jobs" oninput="searchJob()">
+            <input id="searchSkills" type="text" name="searchSkills" class="form-control d-inline w-25" placeholder="Search skills" oninput="searchSkills()">
         </div>
         <section class="m-2">
             <table class="table table-hover">
@@ -31,11 +32,14 @@
                     <tr>
                         <th>Job Id</th>
                         <th>Post</th>
+                        <th>Skills</th>
+                        <th>Location</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="table-content"></tbody>
             </table>
+        </section>
     </main>
     <script src="../../service/JobManager.js"></script>
     <script src="../../service/DynamicElements.js"></script>

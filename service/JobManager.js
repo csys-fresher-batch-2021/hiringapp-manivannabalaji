@@ -4,7 +4,9 @@ class JobManager{
      */
     static getJobOffers(){
         let url = "http://localhost:3000/api/jobs";
-        return axios.get(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
@@ -13,7 +15,9 @@ class JobManager{
      */
     static addJobOffer(jobOffer){
         let url = "http://localhost:3000/api/jobs";
-        return axios.post(url, jobOffer);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.post(url, jobOffer, config);
     }
 
     /**
@@ -22,7 +26,9 @@ class JobManager{
      */
     static removeJobOffer(jobId){
         let url = "http://localhost:3000/api/jobs/" + jobId;
-        return axios.delete(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.delete(url, config);
     }
 
     /**
@@ -32,7 +38,9 @@ class JobManager{
      */
     static updateJobOffer(oldJobOfferId, updatedJob){
         let url = "http://localhost:3000/api/jobs/" + oldJobOfferId;
-        return axios.put(url, updatedJob);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.put(url, updatedJob, config);
     }
 
     /**
@@ -42,7 +50,9 @@ class JobManager{
      */
     static archivePost(id){
         let url = "http://localhost:3000/api/jobs/" + id + "/archive";
-        return axios.put(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.put(url, {}, config);
     }
 
     /**
@@ -74,17 +84,41 @@ class JobManager{
     }
 
     /**
+     * Search job offers by skills
+     * @param {*} skill 
+     * @param {*} jobOffers 
+     */
+    static searchJobBySkills(skill, jobOffers){
+        let searchedSkill = [];
+        jobOffers.forEach(element => {
+            let skills = element.skills;
+            let splittedSkills = skills.split(',');
+            for(let i=0; i<splittedSkills.length; i++){
+                if(splittedSkills[i].trim().toLowerCase().includes(skill.toLowerCase())){
+                    searchedSkill.push(element);
+                    break;
+                }
+            }
+        });
+        return searchedSkill;
+    }
+
+    /**
      * Function to get a job offer using job id.
      * @param {number} id 
      */
     static getJobOffer(id){
         let url = "http://localhost:3000/api/jobs/" + id;
-        return axios.get(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     static getStatus(){
         let url = "http://localhost:3000/api/dashboard";
-        return axios.get(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
@@ -93,5 +127,13 @@ class JobManager{
     static getCurrentJobId(){
         let jobId = localStorage.getItem('JOB_VIEW_ID');
         return jobId;
+    }
+
+    /**
+     * Function to return user auth token
+     */
+    static getUserToken(){
+        let token = JSON.parse(localStorage.getItem('USER')).token;
+        return token;
     }
 }

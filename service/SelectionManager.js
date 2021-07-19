@@ -6,7 +6,9 @@ class SelectionManager{
      */
     static addSelection(id){
         let url = "http://localhost:3000/api/applications/" + id + "/select";
-        return axios.post(url, {});
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.post(url, {}, config);
     }
 
     /**
@@ -14,7 +16,9 @@ class SelectionManager{
      */
     static getAllSelection(){
         let url = "http://localhost:3000/api/selected";
-        return axios.get(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
@@ -23,7 +27,9 @@ class SelectionManager{
      */
     static deleteSelection(id){
         let url = "http://localhost:3000/api/applications/" + id + "/deselect";
-        return axios.delete(url);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.delete(url, config);
     }
 
     /**
@@ -32,7 +38,9 @@ class SelectionManager{
      */
     static updateScore(id, data){
         let url = "http://localhost:3000/api/selected/score/" + id;
-        return axios.put(url, data);
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.put(url, data, config);
     }
 
     /**
@@ -55,5 +63,13 @@ class SelectionManager{
             return ((parseInt(a.score) > parseInt(b.score)) ? -1 : ((parseInt(a.score) < parseInt(b.score)) ? 1 : 0));
         });
         return selectedList;
+    }
+
+    /**
+     * Function to return user auth token
+     */
+    static getUserToken(){
+        let token = JSON.parse(localStorage.getItem('USER')).token;
+        return token;
     }
 }

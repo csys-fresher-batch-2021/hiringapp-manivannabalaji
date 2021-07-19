@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recruit Desk</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <nav class="sidebar">
+        <a  href="ApplicantDashboard.html">Dashboard</a>
+        <a class="active" href="Applications.html">Applications</a>
+        <a href="Profile.html">Profile</a>
+        <a href="../../index.html">Logout</a>
+    </nav>
+    <header>
+        <h1 class="display-4 text-center">Recruit Desk</h1>
+    </header>
+    <main class="content">
+        <h5>Feedback Form</h5>
+        <form onsubmit="submitFeedback()">
+            <div class="form-group">
+                <label for="jobId">JobID</label>
+                <input type="number" name="jobId" id="jobId" class="form-control w-50" disabled>
+            </div>
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" name="jobTitle" id="jobTitle" class="form-control w-50" disabled>
+            </div>
+            <div class="form-group">
+                <label for="comments">Comments</label>
+                <textarea id="comments" class="form-control" rows="10" cols="80" placeholder="Add comments" required></textarea>
+            </div>
+            <button class="btn btn-warning">Submit</button>
+        </form>
+    </main>
+    <script src="../../service/ApplicationManager.js"></script>
+    <script>
+        let jobId = localStorage.getItem("JOB_VIEW_ID");
+        let jobName = localStorage.getItem("JOB_VIEW_TITLE");
+        let userData = JSON.parse(localStorage.getItem("USER"));
+        let userId = userData.id;
+        let userName = userData.name;
+        setData();
+        function setData(){
+            document.getElementById('jobId').value = jobId;
+            document.getElementById('jobTitle').value = jobName;
+        }
+        async function submitFeedback(){
+            event.preventDefault();
+            let comments = document.getElementById('comments').value;
+            let feedback = {
+                jobid: parseInt(jobId),
+                jobtitle: jobName,
+                userid: userId,
+                username: userName,
+                comments: comments
+            }
+            try{
+                let result = await ApplicationManager.sendFeedback(feedback);
+                if(result != null){
+                    alert("Feedback submitted");
+                    window.location.href = "ApplicantDashboard.html";
+                }
+            } catch(err){
+                alert(err.response.data.errorMessage);
+            }
+        }
+    </script>
+</body>
+</html>
