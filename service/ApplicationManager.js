@@ -5,51 +5,56 @@ class ApplicationManager{
      * Function to add new application.
      * @param {*} application 
      */
-    static addApplication(application){
-        applications = this.getAllApplications();
-        let length = applications.length;
-        if(length > 0){
-            let lastElementId = applications[length-1].id;
-            application['id'] = lastElementId + 1; 
-        } else{
-            application['id'] = 1;
-        }
-        applications.push(application);
-        this.saveToStorage(applications);
-        console.log("Application saved");
+    static addApplication(jobId, application){
+        let url = "http://localhost:3000/api/user/" + jobId + "/apply";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.post(url, application, config);
     }
 
     /**
      * Function to retrieve all applications.
      */
     static getAllApplications(){
-        let applications = JSON.parse(localStorage.getItem("APPLICATIONS")) || [];
-        return applications;
+        let url = "http://localhost:3000/api/applications";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
+
     /**
      * Function to retrive a application using email.
      * @param {*} email 
      */
-    static getApplication(email, applicationId){
-        let application;
-        applications = this.getAllApplications();
-        for(let i = 0; i < applications.length; i++){
-            if(applications[i].email === email && applications[i].id === parseInt(applicationId)){
-                application = applications[i];
-                break;
-            }
-        }
-        return application;
+    static getApplication(id){
+        let url = "http://localhost:3000/api/applications/" + id;
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
+
     /**
      * Function to get all application by job name.
      * @param {string} job 
      */
-    static filterApplicationByJob(job){
+    static filterApplicationByJob(job, applications){
         let searchedApplications = [];
-        applications = this.getAllApplications();
         applications.forEach(element => {
-            if(element.jobTitle.toLowerCase().includes(job.toLowerCase())){
+            if(element.jobtitle.toLowerCase().includes(job.toLowerCase())){
+                searchedApplications.push(element);
+            }
+        });
+        return searchedApplications;
+    }
+
+    /**
+     * Function to get all application by applicant name.
+     * @param {string} job 
+     */
+    static filterApplicationByName(name, applications){
+        let searchedApplications = [];
+        applications.forEach(element => {
+            if(element.name.toLowerCase().includes(name.toLowerCase())){
                 searchedApplications.push(element);
             }
         });
@@ -61,14 +66,10 @@ class ApplicationManager{
      * @param {string} email 
      */
     static getApplicationsByUser(email){
-        let userApplications = [];
-        applications = this.getAllApplications();
-        applications.forEach(element => {
-            if(element.email == email){
-                userApplications.push(element);
-            }
-        });
-        return userApplications;
+        let url = "http://localhost:3000/api/user/applications/" + email;
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
@@ -76,23 +77,29 @@ class ApplicationManager{
      * @param {*} applicationId 
      * @param {*} updatedApplication 
      */
-    static updateApplication(applicationId, updatedApplication){
-        applications = this.getAllApplications();
-        let index = applications.findIndex(application => application.id === parseInt(applicationId));
-        if(index != -1){
-            applications.splice(index, 1, updatedApplication);
-            this.saveToStorage(applications);
-            console.log("Successfully updated");
-        } else{
-            console.log("Error: Application not available");
-        }
+    static updateApplication(applicationId, updatedData){
+        let url = "http://localhost:3000/api/applications/" + applicationId;
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.patch(url, updatedData, config);
     }
 
     /**
-     * Function to store applications to storage.
-     * @param {*} application 
+     * Function to store user feedback.
+     * @param {*} feedback 
      */
-    static saveToStorage(applications){
-        localStorage.setItem("APPLICATIONS", JSON.stringify(applications));
+    static sendFeedback(feedback){
+        let url = "http://localhost:3000/api/feedback";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.post(url, feedback, config);
+    }
+
+    /**
+     * Function to return user auth token
+     */
+    static getUserToken(){
+        let token = JSON.parse(localStorage.getItem('USER')).token;
+        return token;
     }
 }

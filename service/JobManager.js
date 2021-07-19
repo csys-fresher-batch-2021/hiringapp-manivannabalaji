@@ -1,46 +1,34 @@
-let openings = [];
-
 class JobManager{
     /**
      * Function to retrieve all job offers from storage.
      */
     static getJobOffers(){
-        let openings = JSON.parse(localStorage.getItem('OPENINGS')) || [];
-        return openings;
+        let url = "http://localhost:3000/api/jobs";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
      * Function to add new job offer.
      * @param {*} offer 
      */
-    static addJobOffer(offer){
-        openings = this.getJobOffers();
-        let length = openings.length;
-        if(length > 0){
-            let lastElementId = parseInt(openings[length-1].id);
-            offer['id'] = lastElementId + 1;
-        } else{
-            offer['id'] = 1;
-        }
-        openings.push(offer);
-        this.saveToStorage(openings);
-        console.log("Job added successfully");
+    static addJobOffer(jobOffer){
+        let url = "http://localhost:3000/api/jobs";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.post(url, jobOffer, config);
     }
 
     /**
      * Function to remove an existing job offer from storage.
      * @param {*} jobOfferId 
      */
-    static removeJobOffer(jobOfferId){
-        let openings = this.getJobOffers();
-        let index = openings.findIndex(offer => offer.id == jobOfferId);
-        if(index != -1){
-            openings.splice(index, 1);
-            this.saveToStorage(openings);
-            console.log("Job Removed Successfully");
-        } else{
-            console.log("Error : Job offer not available.");
-        }
+    static removeJobOffer(jobId){
+        let url = "http://localhost:3000/api/jobs/" + jobId;
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.delete(url, config);
     }
 
     /**
@@ -48,27 +36,33 @@ class JobManager{
      * @param {*} oldJobOfferId 
      * @param {*} newJobOffer 
      */
-    static updateJobOffer(oldJobOfferId, newJobOffer){
-        let openings = this.getJobOffers();
-        let index = openings.findIndex(offer => offer.id == oldJobOfferId);
-        if(index != -1){
-            openings.splice(index, 1, newJobOffer);
-            this.saveToStorage(openings);
-            console.log("Job updated successfully");
-        } else{
-            console.log("Error : Job Offer not available");
-        }
+    static updateJobOffer(oldJobOfferId, updatedJob){
+        let url = "http://localhost:3000/api/jobs/" + oldJobOfferId;
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.put(url, updatedJob, config);
+    }
+
+    /**
+     * Function to update existing job offer.
+     * @param {*} oldJobOfferId 
+     * @param {*} newJobOffer 
+     */
+    static archivePost(id){
+        let url = "http://localhost:3000/api/jobs/" + id + "/archive";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.put(url, {}, config);
     }
 
     /**
      * Function to search specific job from storage.
      * @param {*} jobOfferName 
      */
-    static searchJobOffer(jobOfferName){
+    static searchJobOffer(jobOfferName, jobOffers){
         let searchedJobOffer = [];
-        openings = this.getJobOffers();
-        openings.forEach(element => {
-            if(element.jobTitle.toLowerCase().includes(jobOfferName)){
+        jobOffers.forEach(element => {
+            if(element.jobtitle.toLowerCase().includes(jobOfferName)){
                 searchedJobOffer.push(element);
             }
         });
@@ -76,19 +70,55 @@ class JobManager{
     }
 
     /**
+     * Function to search specific job from storage.
+     * @param {*} jobOfferName 
+     */
+    static searchJobLocation(jobLocation, jobOffers){
+        let searchedJobLocation = [];
+        jobOffers.forEach(element => {
+            if(element.location.toLowerCase().includes(jobLocation)){
+                searchedJobLocation.push(element);
+            }
+        });
+        return searchedJobLocation;
+    }
+
+    /**
+     * Search job offers by skills
+     * @param {*} skill 
+     * @param {*} jobOffers 
+     */
+    static searchJobBySkills(skill, jobOffers){
+        let searchedSkill = [];
+        jobOffers.forEach(element => {
+            let skills = element.skills;
+            let splittedSkills = skills.split(',');
+            for(let i=0; i<splittedSkills.length; i++){
+                if(splittedSkills[i].trim().toLowerCase().includes(skill.toLowerCase())){
+                    searchedSkill.push(element);
+                    break;
+                }
+            }
+        });
+        return searchedSkill;
+    }
+
+    /**
      * Function to get a job offer using job id.
      * @param {number} id 
      */
     static getJobOffer(id){
-        let jobOffer;
-        openings = this.getJobOffers();
-        for(let i = 0; i < openings.length; i++){
-            if(openings[i].id == id){
-                jobOffer = openings[i];
-                break;
-            }
-        }
-        return jobOffer;
+        let url = "http://localhost:3000/api/jobs/" + id;
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
+    }
+
+    static getStatus(){
+        let url = "http://localhost:3000/api/dashboard";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
@@ -100,10 +130,10 @@ class JobManager{
     }
 
     /**
-     * Function to save job offer to storage.
-     * @param {*} openings 
+     * Function to return user auth token
      */
-    static saveToStorage(openings){
-        localStorage.setItem("OPENINGS", JSON.stringify(openings));
+    static getUserToken(){
+        let token = JSON.parse(localStorage.getItem('USER')).token;
+        return token;
     }
 }

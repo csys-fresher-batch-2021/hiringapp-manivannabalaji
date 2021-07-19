@@ -7,11 +7,13 @@
     <title>Recruit Desk</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <nav class="sidebar">
         <a class="active" href="ApplicantDashboard.html">Dashboard</a>
         <a href="Applications.html">Applications</a>
+        <a href="Profile.html">Profile</a>
         <a href="../../index.html">Logout</a>
     </nav>
     <header>
@@ -20,18 +22,24 @@
     <main class="content">
         <h5>Welcome <span id="userName"></span></h5>
         <h6>Available Jobs</h6>
-        <input id="search" type="text" name="search" placeholder="Type here to search jobs">
+        <div class="form-group">
+            <input id="searchJob" type="text" name="searchJob" class="form-control d-inline w-25" placeholder="Search jobs" oninput="searchJob()">
+            <input id="searchSkills" type="text" name="searchSkills" class="form-control d-inline w-25" placeholder="Search skills" oninput="searchSkills()">
+        </div>
         <section class="m-2">
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Job Id</th>
                         <th>Post</th>
+                        <th>Skills</th>
+                        <th>Location</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="table-content"></tbody>
             </table>
+        </section>
     </main>
     <script src="../../service/JobManager.js"></script>
     <script src="../../service/DynamicElements.js"></script>

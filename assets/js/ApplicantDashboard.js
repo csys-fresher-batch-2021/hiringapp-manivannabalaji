@@ -1,9 +1,21 @@
 let tableContent = document.getElementById('table-content');
 let search = document.getElementById('search');
+let allJobs;
 
-let allJobs = JobManager.getJobOffers();
+getJobData();
 
-displayJobs(allJobs)
+async function getJobData(){
+    try{
+        allJobs = await JobManager.getJobOffers();
+        if(allJobs != null){
+            tableContent.innerHTML = "";
+            displayJobs(allJobs.data);
+        }
+    } catch(err){
+        console.log(err.response.data.errorMessage);
+    }
+}
+
 /**
  * Function to display all available jobs to applicant.
  * @param {*} allJobs 
@@ -17,8 +29,16 @@ function displayJobs(allJobs){
         tr.appendChild(th);
         //creating td tag for job title.
         let td = DynamicElements.createTableData();
-        td.innerText = element.jobTitle;
+        td.innerText = element.jobtitle;
         tr.appendChild(td);
+        //creating td tag for skills
+        let tdSkills = DynamicElements.createTableData();
+        tdSkills.innerText = element.skills;
+        tr.appendChild(tdSkills);
+        //creating td tag for location
+        let tdLocation = DynamicElements.createTableData();
+        tdLocation.innerText = element.location;
+        tr.appendChild(tdLocation);
         //creating td tag for action button
         let tdButton = DynamicElements.createTableData();
         //creating button
@@ -27,19 +47,20 @@ function displayJobs(allJobs){
         tr.appendChild(tdButton);
         //appending the tr to tbody in html.
         tableContent.appendChild(tr);
-    });   
+    });
+    addListenerToButtons();   
 }
 
-search.addEventListener('input', function(){
+function searchJob(){
     let searchText = document.getElementById('search').value.toLowerCase();
     tableContent.innerHTML = "";
-    let jobOffers = JobManager.searchJobOffer(searchText);
+    let jobOffers = JobManager.searchJobOffer(searchText, allJobs.data);
     if(jobOffers.length < 1){
         tableContent.innerHTML = "<p>No Jobs Found!";
     }
     displayJobs(jobOffers);
     addListenerToButtons();
-});
+}
 
 setUserName();
 /**
@@ -50,7 +71,6 @@ function setUserName(){
     document.getElementById('userName').innerText = user.name;
 }
 
-addListenerToButtons();
 /**
  * Function to add event listener to all dynamically generated buttons.
  */
@@ -64,4 +84,15 @@ function addListenerToButtons(){
             });
         });
     }
+}
+
+function searchSkills() {
+    let searchText = document.getElementById('searchSkills').value;
+    tableContent.innerHTML = "";
+    let searchedSkills = JobManager.searchJobBySkills(searchText, allJobs.data);
+    if(searchedSkills.length < 1){
+        tableContent.innerHTML = "<p>No Jobs Found!";
+    }
+    displayJobs(searchedSkills);
+    addListenerToButtons();
 }

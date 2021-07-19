@@ -4,56 +4,43 @@ class SelectionManager{
      * Function to add new application to selected list.
      * @param {*} application 
      */
-    static addSelection(application){
-        selected = this.getAllSelection();
-        let length = selected.length;
-        if(length > 0){
-            let lastElementId = selected[length-1].id;
-            application["id"] = lastElementId + 1;
-        } else{
-            application["id"] = 1;
-        }
-        selected.push(application);
-        this.saveToStorage(selected);
+    static addSelection(id){
+        let url = "http://localhost:3000/api/applications/" + id + "/select";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.post(url, {}, config);
     }
 
     /**
      * Function to get all selected applicant.
      */
     static getAllSelection(){
-        selected = JSON.parse(localStorage.getItem("SELECTED_LIST")) || [];
-        return selected;
+        let url = "http://localhost:3000/api/selected";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.get(url, config);
     }
 
     /**
      * Function to delete an application from selected list.
      * @param {*} applicationId 
      */
-    static deleteSelection(applicationId){
-        selected = this.getAllSelection();
-        let index =  selected.findIndex(application => application.applicationId === parseInt(applicationId));
-        if(index != -1){
-            selected.splice(index, 1);
-            this.saveToStorage(selected);
-            console.log("Application removed from selection list");
-        } else{
-            console.log("Error : unable to find the application");
-        }
+    static deleteSelection(id){
+        let url = "http://localhost:3000/api/applications/" + id + "/deselect";
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.delete(url, config);
     }
 
     /**
-     * Function to get selection count for a specific job.
-     * @param {*} jobId 
+     * Function to update score on selected list, if score in application changes.
+     * @param {*} data 
      */
-    static getJobSelectionCount(jobId){
-        selected = this.getAllSelection();
-        let count = 0;
-        selected.forEach(element => {
-            if(element.jobId == parseInt(jobId)){
-                count++;
-            }
-        });
-        return count;
+    static updateScore(id, data){
+        let url = "http://localhost:3000/api/selected/score/" + id;
+        let token = this.getUserToken();
+        let config = {headers: {authorization: "Bearer " + token}};
+        return axios.put(url, data, config);
     }
 
     /**
@@ -79,10 +66,10 @@ class SelectionManager{
     }
 
     /**
-     * Function to save selection list to storage.
-     * @param {*} selection 
+     * Function to return user auth token
      */
-    static saveToStorage(selection){
-        localStorage.setItem("SELECTED_LIST", JSON.stringify(selection));
+    static getUserToken(){
+        let token = JSON.parse(localStorage.getItem('USER')).token;
+        return token;
     }
 }

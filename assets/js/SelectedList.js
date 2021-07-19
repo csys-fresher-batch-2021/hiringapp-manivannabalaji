@@ -1,8 +1,19 @@
 let tableContent = document.getElementById("table-content");
-let selectedList = SelectionManager.getAllSelection();
 let sortBtn = document.getElementById("sortBtn");
+let result;
 
-displayData(selectedList);
+getSelectedList();
+
+async function getSelectedList(){
+    try{
+        result = await SelectionManager.getAllSelection();
+        if(result != null){
+            displayData(result.data);
+        }
+    } catch(err){
+        console.log(err.response.data.errorMessage);
+    }
+}
 
 /**
  * Function to show selected list in table.
@@ -13,7 +24,7 @@ function displayData(selectedList){
         //creating tr tag for each application.
         let tr = DynamicElements.createTableRow();
         //creating th tag for application Id.
-        let th = DynamicElements.createTableHeader(element.applicationId);
+        let th = DynamicElements.createTableHeader(element.applicationid);
         tr.appendChild(th);
         //creating td tag for applicant name.
         let tdName = DynamicElements.createTableData();
@@ -21,7 +32,7 @@ function displayData(selectedList){
         tr.appendChild(tdName);
         //creating td tag for job post title.
         let tdPost = DynamicElements.createTableData();
-        tdPost.innerText = element.jobTitle;
+        tdPost.innerText = element.jobtitle;
         tr.appendChild(tdPost);
         //creating td tag for applicant score.
         let tdScore = DynamicElements.createTableData();
@@ -32,8 +43,13 @@ function displayData(selectedList){
         tdEmail.innerText = element.email;
         tdEmail.className = "email";
         tr.appendChild(tdEmail);
+        //creating td tag for location
+        let tdLocation = DynamicElements.createTableData();
+        tdLocation.innerText = element.location;
+        tr.appendChild(tdLocation);
         //creating td tag for action button
         let tdButton = DynamicElements.createTableData();
+        tdButton.className = "noExport";
         //creating button
         let button = DynamicElements.createButton();
         tdButton.appendChild(button);
@@ -41,6 +57,7 @@ function displayData(selectedList){
         //appending tr tag to tbody.
         tableContent.appendChild(tr);
     });
+    addListenerToButtons();
 }
 
 /**
@@ -49,17 +66,23 @@ function displayData(selectedList){
 sortBtn.addEventListener("click", function(){
     tableContent.innerHTML = "";
     let sortOrder = document.getElementById("order").value;
-    if(sortOrder === "ascending"){
-        let ascendingList = SelectionManager.orderByAscending(selectedList);
-        displayData(ascendingList);
-    } else if(sortOrder === "descending"){
-        let descendingList = SelectionManager.orderByDescending(selectedList);
-        displayData(descendingList);
+    let job = document.getElementById("job_search").value;
+    let location = document.getElementById("job_location").value;
+    if(job === "" && location === ""){
+        performSorting(sortOrder, result.data);
+    } else if(job === ""){
+       let searchedLocation = JobManager.searchJobLocation(location.toLowerCase(), result.data); 
+       performSorting(sortOrder, searchedLocation);
+    } else if (location === ""){
+        let searchedJob = JobManager.searchJobOffer(job.toLowerCase(), result.data);
+        performSorting(sortOrder, searchedJob);
+    } else{
+        let searchedJob = JobManager.searchJobOffer(job.toLowerCase(), result.data);
+        let searchedLocation = JobManager.searchJobLocation(location, searchedJob);
+        performSorting(sortOrder, searchedLocation); 
     }
-    addListenerToButtons();
 });
 
-addListenerToButtons();
 /**
  * Function to add event listener to all dynamically generated buttons.
  */
@@ -75,4 +98,21 @@ function addListenerToButtons(){
             });
         });
     }
+}
+
+function performSorting(sortOrder, data) {
+    if(sortOrder === "ascending"){
+        let ascendingList = SelectionManager.orderByAscending(data);
+        displayData(ascendingList);
+    } else if(sortOrder === "descending"){
+        let descendingList = SelectionManager.orderByDescending(data);
+        displayData(descendingList);
+    }
+}
+
+function generateSheet() {
+    $("#selectedTable").table2excel({
+        exclude: ".noExport",
+        filename: "SelectedList.xls",
+    });
 }

@@ -1,9 +1,20 @@
 let search = document.getElementById('search');
 let tableContent = document.getElementById('table-content');
+let result;
 
-let allApplications = ApplicationManager.getAllApplications();
+getApplications();
 
-displayApplications(allApplications);
+async function getApplications(){
+    try{
+        tableContent.innerHTML = "";
+        result = await ApplicationManager.getAllApplications();
+        if(result != null){
+            displayApplications(result.data);
+        }
+    } catch(err){
+        console.log(err.response.data.errorMessage);
+    }
+}
 
 /**
  * Function to display all application to table.
@@ -28,7 +39,7 @@ function displayApplications(applications){
         tr.appendChild(tdEmail);
         //creating td for job post name.
         let tdPost = DynamicElements.createTableData();
-        tdPost.innerText = element.jobTitle;
+        tdPost.innerText = element.jobtitle;
         tr.appendChild(tdPost);
         //creating td for button.
         let tdButton = DynamicElements.createTableData();
@@ -39,20 +50,29 @@ function displayApplications(applications){
         //appending tr to tbody tag in html
         tableContent.appendChild(tr);
     });
+    addListenerToButtons();
 }
 
-search.addEventListener('input', function(){
+function searchApplication(){
     let searchText = search.value;
     tableContent.innerHTML = "";
-    let applications = ApplicationManager.filterApplicationByJob(searchText);
+    let applications = ApplicationManager.filterApplicationByJob(searchText, result.data);
     if(applications.length < 1){
         tableContent.innerText = "No data found!";
     }
     displayApplications(applications);
-    addListenerToButtons();
-});
+}
 
-addListenerToButtons();
+function searchName(){
+    let searchText = document.getElementById('searchName').value.toLowerCase();
+    tableContent.innerHTML = "";
+    let applications = ApplicationManager.filterApplicationByName(searchText,result.data);
+    if(applications.length < 1){
+        tableContent.innerHTML = "<p>No Jobs Found!";
+    }
+    displayApplications(applications);
+}
+
 /**
  * Function to add event listener to all dynamically generated buttons.
  */

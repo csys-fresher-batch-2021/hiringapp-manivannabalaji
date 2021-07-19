@@ -11,16 +11,17 @@
 </head>
 <body>
     <nav class="sidebar">
-        <a class="active" href="ApplicantDashboard.html">Dashboard</a>
+        <a href="ApplicantDashboard.html">Dashboard</a>
         <a href="Applications.html">Applications</a>
-        <a href="Profile.html">Profile</a>
-        <a href="../../index.html">Logout</a>
+        <a class="active" href="profile.html">Profile</a>
+        <a style="color:white" onclick="logout()">Logout</a>
     </nav>
     <header>
         <h1 class="display-4 text-center">Recruit Desk</h1>
     </header>
     <main class="content">
-        <form onsubmit="applyJob()">
+        <h4>My Profile</h4>
+        <form onsubmit="updateProfile()">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" class="form-control w-50" placeholder="Name" required autofocus>
@@ -48,13 +49,11 @@
             <div class="form-group">
                 <p class="text-danger" id="errorText"></p>
             </div>
-            <p>Note: Please update your profile to enable autofill feature</p>
-            <button class="btn btn-warning">Submit</button>
+            <button class="btn btn-warning">Update Profile</button>
         </form>
     </main>
-    <script src="../../service/ApplicationManager.js"></script>
-    <script src="../../service/ApplicantManager.js"></script>
     <script src="../../validator/InputValidator.js"></script>
-    <script src="../../assets/js/ApplyJob.js"></script>
+    <script src="../../service/ApplicantManager.js"></script>
+    <script src="../../assets/js/Profile.js"></script>
 </body>
 </html>
